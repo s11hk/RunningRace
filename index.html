@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Race</title>
+    <style>
+        * { 
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        }
+        
+        #container {
+        width: 1320px;
+        height: 420px;
+        border: 1px solid black;
+        margin: auto;
+        overflow: hidden;
+        position: relative;
+        background-color:blanchedalmond;
+        }
+        .end{
+            width: 20px;
+            height: 420px;
+            background-color: black;
+            position: absolute;
+            right: 220px;
+        }
+        #btn {
+            width: 150px;
+            height: 50px;
+            position:absolute;
+            top: 360px;
+            left: 550px;
+            background-color:gray;
+            border-radius: 5%;
+            border: 3px solid; 
+        }
+        #stay1 {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+        #stay2 {
+            position: absolute;
+            top: 130px;
+            left: 0px;
+        }
+        #stay3 {
+            position: absolute;
+            top: 240px;
+            left: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="end"></div>
+        <div id="run1"><img id="stay1" src="stay1.png" alt="stay1"></div>
+    </br>
+        <div id="run2"><img id="stay2" src="stay2.png" alt="stay2"></div>
+    </br>
+        <div id="run3"><img id="stay3" src="stay3.png" alt="stay3"></div>
+    </br>
+        <button id="btn">click to run</button>
+    </div>
+    <audio id="RunSound" src="RunSound.m4a"></audio>
+    <audio id="WhySound" src="WhySound.m4a"></audio>
+    <script>
+        const run1 = document.getElementById('run1');
+        const run2 = document.getElementById('run2');
+        const run3 = document.getElementById('run3');
+        const stay1 = document.getElementById('stay1');
+        const stay2 = document.getElementById('stay2');
+        const stay3 = document.getElementById('stay3');
+        const btn = document.getElementById('btn');
+        const duration1 = (Math.random() * 0.5 + 4.5).toFixed(3) + 's';
+        const translateX1 = (Math.random() * 100 + 1100).toFixed(5);
+        const duration2 = (Math.random() * 0.5 + 4.5).toFixed(3) + 's';
+        const translateX2 = (Math.random() * 100 + 1100).toFixed(5);
+        const duration3 = (Math.random() * 0.5 + 4.5).toFixed(3) + 's';
+        const translateX3 = (Math.random() * 100 + 1100).toFixed(5);
+        btn.addEventListener('click', () => {
+            stay1.src = 'run1.gif'; 
+            stay1.style.transition = `all ${duration1} linear`;
+            stay1.style.transform = `translate(${translateX1}px, 0px)`;
+            stay2.src = 'run2.gif'; 
+            stay2.style.transition = `all ${duration2} linear`;
+            stay2.style.transform = `translate(${translateX2}px, 0px)`;
+            stay3.src = 'run3.gif'; 
+            stay3.style.transition = `all ${duration3} linear`;
+            stay3.style.transform = `translate(${translateX3}px, 0px)`;
+            RunSound.play();
+            setTimeout(function(){ 
+                stay1.src = 'stay1.png'; 
+                stay2.src = 'stay2.png';
+                stay3.src = 'stay3.png';
+                btn.disabled = true; 
+            }, 4700);
+        });
+        btn.addEventListener('click', () => {
+        setTimeout(() => {
+                if (parseFloat(translateX1) > parseFloat(translateX2) && parseFloat(translateX1) > parseFloat(translateX3)) {
+                    alert("Runner 1 wins!");
+                    WhySound.play();
+                } else if (parseFloat(translateX2) > parseFloat(translateX1) && parseFloat(translateX2) > parseFloat(translateX3)) {
+                    alert("Runner 2 wins!");
+                    WhySound.play();
+                } else if (parseFloat(translateX3) > parseFloat(translateX1) && parseFloat(translateX3) > parseFloat(translateX2)) {
+                    alert("Runner 3 wins!");
+                    WhySound.play();
+                } else {
+                    alert("It's a tie!");
+                    WhySound.play();
+                }
+            }, 4800);
+        });
+    </script>
+</body>
+</html>
